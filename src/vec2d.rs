@@ -1,21 +1,32 @@
 use std::ops;
 
-pub struct Vec2D {
+pub struct Vec2d {
     pub x: f64,
     pub y: f64,
 }
 
-impl Vec2D {
-    pub fn new(x: f64, y: f64) -> Vec2D {
-        return Vec2D { x, y };
+impl Vec2d {
+    pub fn new(x: f64, y: f64) -> Vec2d {
+        return Vec2d { x, y };
+    }
+
+    fn len(&self) -> f64 {
+        f64::sqrt(self.x * self.x + self.y * self.y)
+    }
+
+    pub fn normalize(&mut self) {
+        let length: f64 = self.len();
+
+        self.x /= length;
+        self.y /= length;
     }
 }
 
-impl ops::Neg for Vec2D {
-    type Output = Vec2D;
+impl ops::Neg for Vec2d {
+    type Output = Vec2d;
 
-    fn neg(self) -> Vec2D {
-        return Vec2D {
+    fn neg(self) -> Vec2d {
+        return Vec2d {
             x: -self.x,
             y: -self.y,
         };
@@ -23,22 +34,22 @@ impl ops::Neg for Vec2D {
 }
 
 
-impl ops::Add<Vec2D> for Vec2D {
-    type Output = Vec2D;
+impl ops::Add<Vec2d> for Vec2d {
+    type Output = Vec2d;
 
-    fn add(self, _rhs: Vec2D) -> Vec2D {
-        return Vec2D {
+    fn add(self, _rhs: Vec2d) -> Vec2d {
+        return Vec2d {
             x: self.x + _rhs.x,
             y: self.y + _rhs.y,
         };
     }
 }
 
-impl ops::Add<f64> for Vec2D {
-    type Output = Vec2D;
+impl ops::Add<f64> for Vec2d {
+    type Output = Vec2d;
 
-    fn add(self, _rhs: f64) -> Vec2D {
-        return Vec2D {
+    fn add(self, _rhs: f64) -> Vec2d {
+        return Vec2d {
             x: self.x + _rhs,
             y: self.y + _rhs,
         };
@@ -46,22 +57,22 @@ impl ops::Add<f64> for Vec2D {
 }
 
 
-impl ops::Sub<Vec2D> for Vec2D {
-    type Output = Vec2D;
+impl ops::Sub<Vec2d> for Vec2d {
+    type Output = Vec2d;
 
-    fn sub(self, _rhs: Vec2D) -> Vec2D {
-        return Vec2D {
+    fn sub(self, _rhs: Vec2d) -> Vec2d {
+        return Vec2d {
             x: self.x - _rhs.x,
             y: self.y - _rhs.y,
         };
     }
 }
 
-impl ops::Sub<f64> for Vec2D {
-    type Output = Vec2D;
+impl ops::Sub<f64> for Vec2d {
+    type Output = Vec2d;
 
-    fn sub(self, _rhs: f64) -> Vec2D {
-        return Vec2D {
+    fn sub(self, _rhs: f64) -> Vec2d {
+        return Vec2d {
             x: self.x - _rhs,
             y: self.y - _rhs,
         };
@@ -69,22 +80,22 @@ impl ops::Sub<f64> for Vec2D {
 }
 
 
-impl ops::Mul<Vec2D> for Vec2D {
-    type Output = Vec2D;
+impl ops::Mul<Vec2d> for Vec2d {
+    type Output = Vec2d;
 
-    fn mul(self, _rhs: Vec2D) -> Vec2D {
-        return Vec2D {
+    fn mul(self, _rhs: Vec2d) -> Vec2d {
+        return Vec2d {
             x: self.x * _rhs.x,
             y: self.y * _rhs.y,
         };
     }
 }
 
-impl ops::Mul<f64> for Vec2D {
-    type Output = Vec2D;
+impl ops::Mul<f64> for Vec2d {
+    type Output = Vec2d;
 
-    fn mul(self, _rhs: f64) -> Vec2D {
-        return Vec2D {
+    fn mul(self, _rhs: f64) -> Vec2d {
+        return Vec2d {
             x: self.x * _rhs,
             y: self.y * _rhs,
         };
@@ -92,22 +103,22 @@ impl ops::Mul<f64> for Vec2D {
 }
 
 
-impl ops::Div<Vec2D> for Vec2D {
-    type Output = Vec2D;
+impl ops::Div<Vec2d> for Vec2d {
+    type Output = Vec2d;
 
-    fn div(self, _rhs: Vec2D) -> Vec2D {
-        return Vec2D {
+    fn div(self, _rhs: Vec2d) -> Vec2d {
+        return Vec2d {
             x: self.x / _rhs.x,
             y: self.y / _rhs.y,
         };
     }
 }
 
-impl ops::Div<f64> for Vec2D {
-    type Output = Vec2D;
+impl ops::Div<f64> for Vec2d {
+    type Output = Vec2d;
 
-    fn div(self, _rhs: f64) -> Vec2D {
-        return Vec2D {
+    fn div(self, _rhs: f64) -> Vec2d {
+        return Vec2d {
             x: self.x / _rhs,
             y: self.y / _rhs,
         };
