@@ -24,6 +24,42 @@ impl Vec3d {
         self.z /= length;
     }
 
+    pub fn abs(&self) -> Vec3d {
+        return Vec3d {
+            x: f64::abs(self.x),
+            y: f64::abs(self.y),
+            z: f64::abs(self.z),
+        };
+    }
+
+    pub fn sign(&self) -> Vec3d {
+        return Vec3d {
+            x: Self::sign_n(self.x),
+            y: Self::sign_n(self.y),
+            z: Self::sign_n(self.z),
+        }
+    }
+
+    pub fn step(&self, vec3d: &Vec3d) -> Vec3d {
+        return Vec3d {
+            x: Self::bool_to_f54(vec3d.x > self.x),
+            y: Self::bool_to_f54(vec3d.y > self.y),
+            z: Self::bool_to_f54(vec3d.z > self.z),
+        };
+    }
+
+    fn sign_n(n: f64) -> f64 {
+        return Self::bool_to_f54(0.0 < n) - Self::bool_to_f54(n < 0.0);
+    }
+
+    fn bool_to_f54(value: bool) -> f64 {
+        if value {
+            1.0
+        } else {
+            0.0
+        }
+    }
+
     pub fn rotate_x(&mut self, angle: f64) {
         let old_y: f64 = self.y;
         let old_z: f64 = self.z;
@@ -51,30 +87,6 @@ impl Vec3d {
     fn len(&self) -> f64 {
         f64::sqrt(self.x * self.x + self.y * self.y + self.z * self.z)
     }
-
-    // vec3 rotateX(vec3 a, double angle)
-    // {
-    // vec3 b = a;
-    // b.z = a.z * cos(angle) - a.y * sin(angle);
-    // b.y = a.z * sin(angle) + a.y * cos(angle);
-    // return b;
-    // }
-    //
-    // vec3 rotateY(vec3 a, double angle)
-    // {
-    // vec3 b = a;
-    // b.x = a.x * cos(angle) - a.z * sin(angle);
-    // b.z = a.x * sin(angle) + a.z * cos(angle);
-    // return b;
-    // }
-    //
-    // vec3 rotateZ(vec3 a, double angle)
-    // {
-    // vec3 b = a;
-    // b.x = a.x * cos(angle) - a.y * sin(angle);
-    // b.y = a.x * sin(angle) + a.y * cos(angle);
-    // return b;
-    // }
 }
 
 impl ops::Neg for Vec3d {
